@@ -1,0 +1,977 @@
+[{
+ "configuration": {
+  "provider_config": {
+   "aws": {
+    "expressions": {
+     "region": {
+      "constant_value": "ap-northeast-2"
+     }
+    },
+    "full_name": "registry.terraform.io/hashicorp/aws",
+    "name": "aws"
+   }
+  },
+  "root_module": {
+   "outputs": {
+    "arn": {
+     "description": "ARN of the server",
+     "expression": {
+      "references": [
+       "aws_instance.example.arn",
+       "aws_instance.example"
+      ]
+     }
+    },
+    "aws_ami": {
+     "description": "ARN of the server",
+     "expression": {
+      "references": [
+       "aws_instance.example.ami",
+       "aws_instance.example"
+      ]
+     },
+     "sensitive": true
+    },
+    "public_ip": {
+     "description": "The public IP of the Instance",
+     "expression": {
+      "references": [
+       "aws_instance.example.public_ip",
+       "aws_instance.example"
+      ]
+     }
+    },
+    "server_name": {
+     "description": "Name(id) of the server",
+     "expression": {
+      "references": [
+       "aws_instance.example.id",
+       "aws_instance.example"
+      ]
+     }
+    }
+   },
+   "resources": [
+    {
+     "address": "aws_instance.example",
+     "expressions": {
+      "ami": {
+       "references": [
+        "data.aws_ssm_parameter.ubuntu-focal.value",
+        "data.aws_ssm_parameter.ubuntu-focal"
+       ]
+      },
+      "instance_type": {
+       "references": [
+        "var.instance_type"
+       ]
+      },
+      "tags": {
+       "references": [
+        "var.server_name"
+       ]
+      },
+      "user_data": {
+       "references": [
+        "var.server_port",
+        "var.server_port"
+       ]
+      },
+      "user_data_replace_on_change": {
+       "constant_value": true
+      },
+      "vpc_security_group_ids": {
+       "references": [
+        "aws_security_group.instance.id",
+        "aws_security_group.instance"
+       ]
+      }
+     },
+     "mode": "managed",
+     "name": "example",
+     "provider_config_key": "aws",
+     "schema_version": 1,
+     "type": "aws_instance"
+    },
+    {
+     "address": "aws_security_group.instance",
+     "expressions": {
+      "egress": {
+       "constant_value": [
+        {
+         "cidr_blocks": [
+          "0.0.0.0/0"
+         ],
+         "description": null,
+         "from_port": 0,
+         "ipv6_cidr_blocks": null,
+         "prefix_list_ids": null,
+         "protocol": "-1",
+         "security_groups": null,
+         "self": null,
+         "to_port": 0
+        }
+       ]
+      },
+      "ingress": {
+       "references": [
+        "var.server_port",
+        "var.server_port",
+        "var.ssh_port",
+        "var.ssh_port"
+       ]
+      },
+      "name": {
+       "references": [
+        "var.security_group_name"
+       ]
+      }
+     },
+     "mode": "managed",
+     "name": "instance",
+     "provider_config_key": "aws",
+     "schema_version": 1,
+     "type": "aws_security_group"
+    },
+    {
+     "address": "data.aws_ssm_parameter.ubuntu-focal",
+     "expressions": {
+      "name": {
+       "constant_value": "/aws/service/canonical/ubuntu/server/20.04/stable/current/amd64/hvm/ebs-gp2/ami-id"
+      }
+     },
+     "mode": "data",
+     "name": "ubuntu-focal",
+     "provider_config_key": "aws",
+     "schema_version": 0,
+     "type": "aws_ssm_parameter"
+    }
+   ],
+   "variables": {
+    "instance_type": {
+     "default": "t2.micro",
+     "description": "var.instance_type"
+    },
+    "security_group_name": {
+     "default": "terraform-example-instance",
+     "description": "The name of the security group"
+    },
+    "server_name": {
+     "default": "hs",
+     "description": "server_name"
+    },
+    "server_port": {
+     "default": 50000,
+     "description": "The port the server will use for HTTP requests"
+    },
+    "ssh_port": {
+     "default": 22,
+     "description": "ssh_port"
+    }
+   }
+  }
+ },
+ "format_version": "1.1",
+ "output_changes": {
+  "arn": {
+   "actions": [
+    "update"
+   ],
+   "after_sensitive": false,
+   "after_unknown": true,
+   "before": "arn:aws:ec2:ap-northeast-2:998306678776:instance/i-01f5edf10b6866584",
+   "before_sensitive": false
+  },
+  "aws_ami": {
+   "actions": [
+    "no-op"
+   ],
+   "after": "ami-05a5333b72d3d1c93",
+   "after_sensitive": true,
+   "after_unknown": false,
+   "before": "ami-05a5333b72d3d1c93",
+   "before_sensitive": true
+  },
+  "public_ip": {
+   "actions": [
+    "update"
+   ],
+   "after_sensitive": false,
+   "after_unknown": true,
+   "before": "3.39.11.112",
+   "before_sensitive": false
+  },
+  "server_name": {
+   "actions": [
+    "update"
+   ],
+   "after_sensitive": false,
+   "after_unknown": true,
+   "before": "i-01f5edf10b6866584",
+   "before_sensitive": false
+  }
+ },
+ "planned_values": {
+  "outputs": {
+   "arn": {
+    "sensitive": false
+   },
+   "aws_ami": {
+    "sensitive": true,
+    "type": "string",
+    "value": "ami-05a5333b72d3d1c93"
+   },
+   "public_ip": {
+    "sensitive": false
+   },
+   "server_name": {
+    "sensitive": false
+   }
+  },
+  "root_module": {
+   "resources": [
+    {
+     "address": "aws_instance.example",
+     "mode": "managed",
+     "name": "example",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 1,
+     "sensitive_values": {
+      "ami": true,
+      "capacity_reservation_specification": [],
+      "credit_specification": [],
+      "ebs_block_device": [],
+      "enclave_options": [],
+      "ephemeral_block_device": [],
+      "ipv6_addresses": [],
+      "launch_template": [],
+      "maintenance_options": [],
+      "metadata_options": [],
+      "network_interface": [],
+      "private_dns_name_options": [],
+      "root_block_device": [],
+      "secondary_private_ips": [],
+      "security_groups": [],
+      "tags": {},
+      "tags_all": {},
+      "vpc_security_group_ids": []
+     },
+     "type": "aws_instance",
+     "values": {
+      "ami": "ami-05a5333b72d3d1c93",
+      "credit_specification": [],
+      "get_password_data": false,
+      "hibernation": null,
+      "iam_instance_profile": null,
+      "instance_type": "t2.micro",
+      "launch_template": [],
+      "source_dest_check": true,
+      "tags": {
+       "Name": "hs"
+      },
+      "tags_all": {
+       "Name": "hs"
+      },
+      "timeouts": null,
+      "user_data": "181d21af80f16a96a77bd2c8b05b8aa8d0f0b72e",
+      "user_data_replace_on_change": true,
+      "volume_tags": null
+     }
+    },
+    {
+     "address": "aws_security_group.instance",
+     "mode": "managed",
+     "name": "instance",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 1,
+     "sensitive_values": {
+      "egress": [
+       {
+        "cidr_blocks": [
+         false
+        ],
+        "ipv6_cidr_blocks": [],
+        "prefix_list_ids": [],
+        "security_groups": []
+       }
+      ],
+      "ingress": [
+       {
+        "cidr_blocks": [
+         false
+        ],
+        "ipv6_cidr_blocks": [],
+        "prefix_list_ids": [],
+        "security_groups": []
+       },
+       {
+        "cidr_blocks": [
+         false
+        ],
+        "ipv6_cidr_blocks": [],
+        "prefix_list_ids": [],
+        "security_groups": []
+       }
+      ],
+      "tags_all": {}
+     },
+     "type": "aws_security_group",
+     "values": {
+      "description": "Managed by Terraform",
+      "egress": [
+       {
+        "cidr_blocks": [
+         "0.0.0.0/0"
+        ],
+        "description": "",
+        "from_port": 0,
+        "ipv6_cidr_blocks": [],
+        "prefix_list_ids": [],
+        "protocol": "-1",
+        "security_groups": [],
+        "self": false,
+        "to_port": 0
+       }
+      ],
+      "ingress": [
+       {
+        "cidr_blocks": [
+         "0.0.0.0/0"
+        ],
+        "description": "",
+        "from_port": 22,
+        "ipv6_cidr_blocks": [],
+        "prefix_list_ids": [],
+        "protocol": "tcp",
+        "security_groups": [],
+        "self": false,
+        "to_port": 22
+       },
+       {
+        "cidr_blocks": [
+         "0.0.0.0/0"
+        ],
+        "description": "",
+        "from_port": 50000,
+        "ipv6_cidr_blocks": [],
+        "prefix_list_ids": [],
+        "protocol": "tcp",
+        "security_groups": [],
+        "self": false,
+        "to_port": 50000
+       }
+      ],
+      "name": "terraform-example-instance",
+      "revoke_rules_on_delete": false,
+      "tags": null,
+      "timeouts": null
+     }
+    }
+   ]
+  }
+ },
+ "prior_state": {
+  "format_version": "1.0",
+  "terraform_version": "1.3.2",
+  "values": {
+   "outputs": {
+    "arn": {
+     "sensitive": false,
+     "type": "string",
+     "value": "arn:aws:ec2:ap-northeast-2:998306678776:instance/i-01f5edf10b6866584"
+    },
+    "aws_ami": {
+     "sensitive": true,
+     "type": "string",
+     "value": "ami-05a5333b72d3d1c93"
+    },
+    "public_ip": {
+     "sensitive": false,
+     "type": "string",
+     "value": "3.39.11.112"
+    },
+    "server_name": {
+     "sensitive": false,
+     "type": "string",
+     "value": "i-01f5edf10b6866584"
+    }
+   },
+   "root_module": {
+    "resources": [
+     {
+      "address": "data.aws_ssm_parameter.ubuntu-focal",
+      "mode": "data",
+      "name": "ubuntu-focal",
+      "provider_name": "registry.terraform.io/hashicorp/aws",
+      "schema_version": 0,
+      "sensitive_values": {},
+      "type": "aws_ssm_parameter",
+      "values": {
+       "arn": "arn:aws:ssm:ap-northeast-2::parameter/aws/service/canonical/ubuntu/server/20.04/stable/current/amd64/hvm/ebs-gp2/ami-id",
+       "id": "/aws/service/canonical/ubuntu/server/20.04/stable/current/amd64/hvm/ebs-gp2/ami-id",
+       "name": "/aws/service/canonical/ubuntu/server/20.04/stable/current/amd64/hvm/ebs-gp2/ami-id",
+       "type": "String",
+       "value": "ami-05a5333b72d3d1c93",
+       "version": 259,
+       "with_decryption": true
+      }
+     }
+    ]
+   }
+  }
+ },
+ "relevant_attributes": [
+  {
+   "attribute": [
+    "id"
+   ],
+   "resource": "aws_security_group.instance"
+  },
+  {
+   "attribute": [
+    "value"
+   ],
+   "resource": "data.aws_ssm_parameter.ubuntu-focal"
+  },
+  {
+   "attribute": [
+    "public_ip"
+   ],
+   "resource": "aws_instance.example"
+  },
+  {
+   "attribute": [
+    "id"
+   ],
+   "resource": "aws_instance.example"
+  },
+  {
+   "attribute": [
+    "arn"
+   ],
+   "resource": "aws_instance.example"
+  }
+ ],
+ "resource_changes": [
+  {
+   "address": "aws_instance.example",
+   "change": {
+    "actions": [
+     "create"
+    ],
+    "after": {
+     "ami": "ami-05a5333b72d3d1c93",
+     "credit_specification": [],
+     "get_password_data": false,
+     "hibernation": null,
+     "iam_instance_profile": null,
+     "instance_type": "t2.micro",
+     "launch_template": [],
+     "source_dest_check": true,
+     "tags": {
+      "Name": "hs"
+     },
+     "tags_all": {
+      "Name": "hs"
+     },
+     "timeouts": null,
+     "user_data": "181d21af80f16a96a77bd2c8b05b8aa8d0f0b72e",
+     "user_data_replace_on_change": true,
+     "volume_tags": null
+    },
+    "after_sensitive": {
+     "ami": true,
+     "capacity_reservation_specification": [],
+     "credit_specification": [],
+     "ebs_block_device": [],
+     "enclave_options": [],
+     "ephemeral_block_device": [],
+     "ipv6_addresses": [],
+     "launch_template": [],
+     "maintenance_options": [],
+     "metadata_options": [],
+     "network_interface": [],
+     "private_dns_name_options": [],
+     "root_block_device": [],
+     "secondary_private_ips": [],
+     "security_groups": [],
+     "tags": {},
+     "tags_all": {},
+     "vpc_security_group_ids": []
+    },
+    "after_unknown": {
+     "arn": true,
+     "associate_public_ip_address": true,
+     "availability_zone": true,
+     "capacity_reservation_specification": true,
+     "cpu_core_count": true,
+     "cpu_threads_per_core": true,
+     "credit_specification": [],
+     "disable_api_stop": true,
+     "disable_api_termination": true,
+     "ebs_block_device": true,
+     "ebs_optimized": true,
+     "enclave_options": true,
+     "ephemeral_block_device": true,
+     "host_id": true,
+     "host_resource_group_arn": true,
+     "id": true,
+     "instance_initiated_shutdown_behavior": true,
+     "instance_state": true,
+     "ipv6_address_count": true,
+     "ipv6_addresses": true,
+     "key_name": true,
+     "launch_template": [],
+     "maintenance_options": true,
+     "metadata_options": true,
+     "monitoring": true,
+     "network_interface": true,
+     "outpost_arn": true,
+     "password_data": true,
+     "placement_group": true,
+     "placement_partition_number": true,
+     "primary_network_interface_id": true,
+     "private_dns": true,
+     "private_dns_name_options": true,
+     "private_ip": true,
+     "public_dns": true,
+     "public_ip": true,
+     "root_block_device": true,
+     "secondary_private_ips": true,
+     "security_groups": true,
+     "subnet_id": true,
+     "tags": {},
+     "tags_all": {},
+     "tenancy": true,
+     "user_data_base64": true,
+     "vpc_security_group_ids": true
+    },
+    "before": null,
+    "before_sensitive": false
+   },
+   "mode": "managed",
+   "name": "example",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "type": "aws_instance"
+  },
+  {
+   "address": "aws_security_group.instance",
+   "change": {
+    "actions": [
+     "create"
+    ],
+    "after": {
+     "description": "Managed by Terraform",
+     "egress": [
+      {
+       "cidr_blocks": [
+        "0.0.0.0/0"
+       ],
+       "description": "",
+       "from_port": 0,
+       "ipv6_cidr_blocks": [],
+       "prefix_list_ids": [],
+       "protocol": "-1",
+       "security_groups": [],
+       "self": false,
+       "to_port": 0
+      }
+     ],
+     "ingress": [
+      {
+       "cidr_blocks": [
+        "0.0.0.0/0"
+       ],
+       "description": "",
+       "from_port": 22,
+       "ipv6_cidr_blocks": [],
+       "prefix_list_ids": [],
+       "protocol": "tcp",
+       "security_groups": [],
+       "self": false,
+       "to_port": 22
+      },
+      {
+       "cidr_blocks": [
+        "0.0.0.0/0"
+       ],
+       "description": "",
+       "from_port": 50000,
+       "ipv6_cidr_blocks": [],
+       "prefix_list_ids": [],
+       "protocol": "tcp",
+       "security_groups": [],
+       "self": false,
+       "to_port": 50000
+      }
+     ],
+     "name": "terraform-example-instance",
+     "revoke_rules_on_delete": false,
+     "tags": null,
+     "timeouts": null
+    },
+    "after_sensitive": {
+     "egress": [
+      {
+       "cidr_blocks": [
+        false
+       ],
+       "ipv6_cidr_blocks": [],
+       "prefix_list_ids": [],
+       "security_groups": []
+      }
+     ],
+     "ingress": [
+      {
+       "cidr_blocks": [
+        false
+       ],
+       "ipv6_cidr_blocks": [],
+       "prefix_list_ids": [],
+       "security_groups": []
+      },
+      {
+       "cidr_blocks": [
+        false
+       ],
+       "ipv6_cidr_blocks": [],
+       "prefix_list_ids": [],
+       "security_groups": []
+      }
+     ],
+     "tags_all": {}
+    },
+    "after_unknown": {
+     "arn": true,
+     "egress": [
+      {
+       "cidr_blocks": [
+        false
+       ],
+       "ipv6_cidr_blocks": [],
+       "prefix_list_ids": [],
+       "security_groups": []
+      }
+     ],
+     "id": true,
+     "ingress": [
+      {
+       "cidr_blocks": [
+        false
+       ],
+       "ipv6_cidr_blocks": [],
+       "prefix_list_ids": [],
+       "security_groups": []
+      },
+      {
+       "cidr_blocks": [
+        false
+       ],
+       "ipv6_cidr_blocks": [],
+       "prefix_list_ids": [],
+       "security_groups": []
+      }
+     ],
+     "name_prefix": true,
+     "owner_id": true,
+     "tags_all": true,
+     "vpc_id": true
+    },
+    "before": null,
+    "before_sensitive": false
+   },
+   "mode": "managed",
+   "name": "instance",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "type": "aws_security_group"
+  }
+ ],
+ "resource_drift": [
+  {
+   "address": "aws_instance.example",
+   "change": {
+    "actions": [
+     "delete"
+    ],
+    "after": null,
+    "after_sensitive": false,
+    "after_unknown": {},
+    "before": {
+     "ami": "ami-05a5333b72d3d1c93",
+     "arn": "arn:aws:ec2:ap-northeast-2:998306678776:instance/i-01f5edf10b6866584",
+     "associate_public_ip_address": true,
+     "availability_zone": "ap-northeast-2c",
+     "capacity_reservation_specification": [
+      {
+       "capacity_reservation_preference": "open",
+       "capacity_reservation_target": []
+      }
+     ],
+     "cpu_core_count": 1,
+     "cpu_threads_per_core": 1,
+     "credit_specification": [
+      {
+       "cpu_credits": "standard"
+      }
+     ],
+     "disable_api_stop": false,
+     "disable_api_termination": false,
+     "ebs_block_device": [],
+     "ebs_optimized": false,
+     "enclave_options": [
+      {
+       "enabled": false
+      }
+     ],
+     "ephemeral_block_device": [],
+     "get_password_data": false,
+     "hibernation": false,
+     "host_id": null,
+     "host_resource_group_arn": null,
+     "iam_instance_profile": "",
+     "id": "i-01f5edf10b6866584",
+     "instance_initiated_shutdown_behavior": "stop",
+     "instance_state": "running",
+     "instance_type": "t2.micro",
+     "ipv6_address_count": 0,
+     "ipv6_addresses": [],
+     "key_name": "",
+     "launch_template": [],
+     "maintenance_options": [
+      {
+       "auto_recovery": "default"
+      }
+     ],
+     "metadata_options": [
+      {
+       "http_endpoint": "enabled",
+       "http_put_response_hop_limit": 1,
+       "http_tokens": "optional",
+       "instance_metadata_tags": "disabled"
+      }
+     ],
+     "monitoring": false,
+     "network_interface": [],
+     "outpost_arn": "",
+     "password_data": "",
+     "placement_group": "",
+     "placement_partition_number": null,
+     "primary_network_interface_id": "eni-09d900359ba73b74b",
+     "private_dns": "ip-172-31-34-143.ap-northeast-2.compute.internal",
+     "private_dns_name_options": [
+      {
+       "enable_resource_name_dns_a_record": false,
+       "enable_resource_name_dns_aaaa_record": false,
+       "hostname_type": "ip-name"
+      }
+     ],
+     "private_ip": "172.31.34.143",
+     "public_dns": "ec2-3-39-11-112.ap-northeast-2.compute.amazonaws.com",
+     "public_ip": "3.39.11.112",
+     "root_block_device": [
+      {
+       "delete_on_termination": true,
+       "device_name": "/dev/sda1",
+       "encrypted": false,
+       "iops": 100,
+       "kms_key_id": "",
+       "tags": {},
+       "throughput": 0,
+       "volume_id": "vol-03cd52781f2133078",
+       "volume_size": 8,
+       "volume_type": "gp2"
+      }
+     ],
+     "secondary_private_ips": [],
+     "security_groups": [
+      "terraform-example-instance"
+     ],
+     "source_dest_check": true,
+     "subnet_id": "subnet-00efa5d15cf775e4b",
+     "tags": {
+      "Name": "hs"
+     },
+     "tags_all": {
+      "Name": "hs"
+     },
+     "tenancy": "default",
+     "timeouts": null,
+     "user_data": "181d21af80f16a96a77bd2c8b05b8aa8d0f0b72e",
+     "user_data_base64": null,
+     "user_data_replace_on_change": true,
+     "volume_tags": null,
+     "vpc_security_group_ids": [
+      "sg-0b3fe21d042be219f"
+     ]
+    },
+    "before_sensitive": {
+     "ami": true,
+     "capacity_reservation_specification": [
+      {
+       "capacity_reservation_target": []
+      }
+     ],
+     "credit_specification": [
+      {}
+     ],
+     "ebs_block_device": [],
+     "enclave_options": [
+      {}
+     ],
+     "ephemeral_block_device": [],
+     "ipv6_addresses": [],
+     "launch_template": [],
+     "maintenance_options": [
+      {}
+     ],
+     "metadata_options": [
+      {}
+     ],
+     "network_interface": [],
+     "private_dns_name_options": [
+      {}
+     ],
+     "root_block_device": [
+      {
+       "tags": {}
+      }
+     ],
+     "secondary_private_ips": [],
+     "security_groups": [
+      false
+     ],
+     "tags": {},
+     "tags_all": {},
+     "vpc_security_group_ids": [
+      false
+     ]
+    }
+   },
+   "mode": "managed",
+   "name": "example",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "type": "aws_instance"
+  },
+  {
+   "address": "aws_security_group.instance",
+   "change": {
+    "actions": [
+     "delete"
+    ],
+    "after": null,
+    "after_sensitive": false,
+    "after_unknown": {},
+    "before": {
+     "arn": "arn:aws:ec2:ap-northeast-2:998306678776:security-group/sg-0b3fe21d042be219f",
+     "description": "Managed by Terraform",
+     "egress": [
+      {
+       "cidr_blocks": [
+        "0.0.0.0/0"
+       ],
+       "description": "",
+       "from_port": 0,
+       "ipv6_cidr_blocks": [],
+       "prefix_list_ids": [],
+       "protocol": "-1",
+       "security_groups": [],
+       "self": false,
+       "to_port": 0
+      }
+     ],
+     "id": "sg-0b3fe21d042be219f",
+     "ingress": [
+      {
+       "cidr_blocks": [
+        "0.0.0.0/0"
+       ],
+       "description": "",
+       "from_port": 22,
+       "ipv6_cidr_blocks": [],
+       "prefix_list_ids": [],
+       "protocol": "tcp",
+       "security_groups": [],
+       "self": false,
+       "to_port": 22
+      },
+      {
+       "cidr_blocks": [
+        "0.0.0.0/0"
+       ],
+       "description": "",
+       "from_port": 50000,
+       "ipv6_cidr_blocks": [],
+       "prefix_list_ids": [],
+       "protocol": "tcp",
+       "security_groups": [],
+       "self": false,
+       "to_port": 50000
+      }
+     ],
+     "name": "terraform-example-instance",
+     "name_prefix": "",
+     "owner_id": "998306678776",
+     "revoke_rules_on_delete": false,
+     "tags": {},
+     "tags_all": {},
+     "timeouts": null,
+     "vpc_id": "vpc-071b16a8253ee6b70"
+    },
+    "before_sensitive": {
+     "egress": [
+      {
+       "cidr_blocks": [
+        false
+       ],
+       "ipv6_cidr_blocks": [],
+       "prefix_list_ids": [],
+       "security_groups": []
+      }
+     ],
+     "ingress": [
+      {
+       "cidr_blocks": [
+        false
+       ],
+       "ipv6_cidr_blocks": [],
+       "prefix_list_ids": [],
+       "security_groups": []
+      },
+      {
+       "cidr_blocks": [
+        false
+       ],
+       "ipv6_cidr_blocks": [],
+       "prefix_list_ids": [],
+       "security_groups": []
+      }
+     ],
+     "tags": {},
+     "tags_all": {}
+    }
+   },
+   "mode": "managed",
+   "name": "instance",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "type": "aws_security_group"
+  }
+ ],
+ "terraform_version": "1.3.2",
+ "variables": {
+  "instance_type": {
+   "value": "t2.micro"
+  },
+  "security_group_name": {
+   "value": "terraform-example-instance"
+  },
+  "server_name": {
+   "value": "hs"
+  },
+  "server_port": {
+   "value": 50000
+  },
+  "ssh_port": {
+   "value": 22
+  }
+ }
+}]
