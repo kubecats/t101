@@ -1,8 +1,4 @@
-PIP=${EC2_Public_IP}
-while true; do curl --connect-timeout 1  http://$PIP:50000/ ; echo "------------------------------"; date; sleep 1; done
-Hello, LHS 50000
----------------------------
-Sun Oct 23 00:45:18 KST 2022
+![image](https://user-images.githubusercontent.com/76464384/197349241-0005b2bd-c131-4b12-b399-f62c0cfb2aa5.png)
 
 
 pluralith plan
