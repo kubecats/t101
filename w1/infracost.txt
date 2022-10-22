@@ -1,0 +1,22 @@
+[1mProject:[0m kubecats/t101/w1
+
+ [4mName[0m                                                    [4mMonthly Qty[0m  [4mUnit[0m              [4mMonthly Cost[0m 
+                                                                                                     
+ [1maws_instance.example[0m                                                                                
+ [2m├─[0m Instance usage (Linux/UNIX, on-demand, t2.micro)             730  hours                   $10.51 
+ [2m└─[0m root_block_device                                                                                
+ [2m   └─[0m Storage (general purpose SSD, gp2)                          8  GB                       $0.91 
+                                                                                                     
+ [1maws_nat_gateway.nat_gateway_1[0m                                                                       
+ [2m├─[0m NAT gateway                                                  730  hours                   $43.07 
+ [2m└─[0m Data processed                                    Monthly cost depends on usage: $0.059 per GB   
+                                                                                                     
+ [1maws_nat_gateway.nat_gateway_2[0m                                                                       
+ [2m├─[0m NAT gateway                                                  730  hours                   $43.07 
+ [2m└─[0m Data processed                                    Monthly cost depends on usage: $0.059 per GB   
+                                                                                                     
+[1m OVERALL TOTAL[0m                                                                                $97.56 
+──────────────────────────────────
+23 cloud resources were detected:
+∙ 3 were estimated, all of which include usage-based costs, see [4mhttps://infracost.io/usage-file[0m
+∙ 20 were free, rerun with --show-skipped to see details

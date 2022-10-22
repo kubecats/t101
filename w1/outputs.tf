@@ -15,7 +15,3 @@ output "server_name" {
   value       = aws_instance.example.id
   description = "Name(id) of the server"
 }
-# output "ec2_ssh" {
-#   description = "The public ssh access"
-#   value       = "ssh -i "sandbox-hs.pem" ubuntu@${aws_instance.example.public_ip}"
-# }
