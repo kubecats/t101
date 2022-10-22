@@ -1,6 +1,14 @@
 # Local .terraform directories
 **/.terraform/*
 
+# Local .pluralith directories
+**/.pluralith/*
+
+# Local .infracost directories
+**/.infracost/*
+
+.terraform*
+
 # .tfstate files
 *.tfstate
 *.tfstate.*
