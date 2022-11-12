@@ -1,0 +1,20 @@
+[1mProject:[0m kubecats/t101/w2/my-vpc-ec2-asg
+
+ [4mName[0m                                                       [4mMonthly Qty[0m  [4mUnit[0m              [4mMonthly Cost[0m 
+                                                                                                        
+ [1maws_autoscaling_group.hsasg[0m                                                                            
+ [2m└─[0m aws_launch_configuration.hslauchconfig                                                              
+ [2m   ├─[0m Instance usage (Linux/UNIX, on-demand, t2.micro)           2,190  hours                   $31.54 
+ [2m   ├─[0m EC2 detailed monitoring                                       21  metrics                  $6.30 
+ [2m   └─[0m root_block_device                                                                                
+ [2m      └─[0m Storage (general purpose SSD, gp2)                         24  GB                       $2.74 
+                                                                                                        
+ [1maws_lb.hsalb[0m                                                                                           
+ [2m├─[0m Application load balancer                                       730  hours                   $16.43 
+ [2m└─[0m Load balancer capacity units                         Monthly cost depends on usage: $5.84 per LCU   
+                                                                                                        
+[1m OVERALL TOTAL[0m                                                                                   $57.00 
+──────────────────────────────────
+17 cloud resources were detected:
+∙ 2 were estimated, all of which include usage-based costs, see [4mhttps://infracost.io/usage-file[0m
+∙ 15 were free, rerun with --show-skipped to see details
